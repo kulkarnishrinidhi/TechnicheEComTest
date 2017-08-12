@@ -26,21 +26,12 @@ class TopTabBarViewController: UIViewController {
     
     var highlightView = UIView()
     
-    fileprivate let highlightedViewHieght:CGFloat = 2.0
+    fileprivate let highlightedViewHieght:CGFloat = 3.0
     
     override func viewDidLoad() {
         super.viewDidLoad()
         self.setUpCollectionView()
         self.setupHighLightView()
-    }
-    
-    override func viewDidLayoutSubviews() {
-        super.viewDidLayoutSubviews()
-        
-        
-//        if indexPath.row == 0 {
-//            
-//        }
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -58,28 +49,26 @@ extension TopTabBarViewController {
     func setUpCollectionView() {
         self.tabBarCollectionView.dataSource = self
         self.tabBarCollectionView.delegate = self
-        self.tabBarCollectionView.isPagingEnabled = true
         self.tabBarCollectionView.allowsSelection = true
         
         self.tabBarCollectionView.register(TabCollectionViewCell.nib(), forCellWithReuseIdentifier: TabCollectionViewCell.cellIdentifier())
         
         if let flowLayout = self.tabBarCollectionView.collectionViewLayout as? UICollectionViewFlowLayout {
-            flowLayout.minimumInteritemSpacing = 10
+            //flowLayout.minimumInteritemSpacing = 10
             flowLayout.estimatedItemSize = CGSize(width: 40, height: self.tabBarCollectionView.frame.height)
             flowLayout.itemSize = UICollectionViewFlowLayoutAutomaticSize
-            
         }
     }
     
+    
     func setupHighLightView() {
-        
         let highlightedViewY = self.tabBarCollectionView.frame.height - highlightedViewHieght
-        let defaultFrame = CGRect(x: 0, y: highlightedViewY, width: 0.0, height: highlightedViewHieght)
+        let defaultFrame = CGRect(x: 0, y: highlightedViewY, width: 0.0, height: self.highlightedViewHieght)
         self.highlightView.frame = defaultFrame
-        highlightView.frame = defaultFrame
         highlightView.backgroundColor = UIColor(red: 237.0/255.0, green: 175.0/255.0, blue: 54.0/255.0, alpha: 1.0)
         self.tabBarCollectionView.addSubview(highlightView)
     }
+    
     
     func updateHighlightedView(forCell cell: UICollectionViewCell) {
         UIView.animate(withDuration: 0.3) {
@@ -88,6 +77,7 @@ extension TopTabBarViewController {
             self.highlightView.layoutIfNeeded()
         }
     }
+    
     
     func selectItemAt(indexPath: IndexPath) {
         let cell = self.tabBarCollectionView.cellForItem(at: indexPath)!
@@ -129,10 +119,6 @@ extension TopTabBarViewController: UICollectionViewDelegate {
         self.updateHighlightedView(forCell: cell)
         self.tabBarDelegate?.topTabBarView(didSelectItemAt: indexPath)
     }
-    
-    
-//    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-//        return (arrayOfStats[indexPath.row] as? String)?.size(attributes: nil)!
-//    }
+
 }
 

@@ -19,8 +19,19 @@ class HomeViewController: UIViewController {
     var tabContentViewController: TabContentViewController!
     
     let menuLabels = ["Sweets", "Chat", "Rice", "Juice", "Roti", "Deserts", "Abcdefgh", "xyzqwer"]
+    
+    fileprivate var foodMenus:[FoodMenu] = [] {
+        didSet {
+            self.topTabBarViewController.tabBarCollectionView.reloadData()
+        }
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+        let dataManager = DataManager()
+        dataManager.getProductList { (foodMenus, error) in
+            self.foodMenus = foodMenus ?? []
+        }
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
@@ -57,18 +68,13 @@ extension HomeViewController: TopTabBarViewDelegate {
     }
     
     func topTabBarView(configure tabCollectionViewCell: TabCollectionViewCell, at indexPath: IndexPath) {
-        // TODO: Fetch the values and configure cell
-        if indexPath.row == 0 {
-            tabCollectionViewCell.tabTitleLabel.text = "Mahabaleshwar"
-        } else {
-            tabCollectionViewCell.tabTitleLabel.text = "Hegde"
-        }
-        tabCollectionViewCell.tabTitleLabel.text = menuLabels[indexPath.row]
+    
+        tabCollectionViewCell.tabTitleLabel.text = self.foodMenus[indexPath.row].name
     }
     
     func numberOfItemsInTopTabBar() -> Int {
         // TODO: Fetch data and return proper value
-        return menuLabels.count
+        return self.foodMenus.count
     }
 }
 
@@ -97,7 +103,8 @@ extension HomeViewController: TabContentViewDelegate {
     
     func tabContentView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: SweetsCollectionViewCell.cellIdentifier(), for: indexPath) as! SweetsCollectionViewCell
-        cell.backgroundColor = getRandomColor()
+        
+        //cell.backgroundColor = getRandomColor()
         return cell
     }
     

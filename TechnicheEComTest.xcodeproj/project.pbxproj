@@ -12,6 +12,7 @@
 		F6FB15351F40D8160084F40F /* FoodMenuCategories.swift in Sources */ = {isa = PBXBuildFile; fileRef = F6FB15341F40D8160084F40F /* FoodMenuCategories.swift */; };
 		F6FB15371F40DB850084F40F /* FoodICategorytem.swift in Sources */ = {isa = PBXBuildFile; fileRef = F6FB15361F40DB850084F40F /* FoodICategorytem.swift */; };
 		F6FB15391F40DBFE0084F40F /* FoodPriceInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = F6FB15381F40DBFE0084F40F /* FoodPriceInfo.swift */; };
+		F6FB153D1F419A3B0084F40F /* CheckoutViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F6FB153C1F419A3A0084F40F /* CheckoutViewController.swift */; };
 		F6FEB4361F3D914D00417D2D /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F6FEB4351F3D914D00417D2D /* AppDelegate.swift */; };
 		F6FEB4381F3D914D00417D2D /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F6FEB4371F3D914D00417D2D /* HomeViewController.swift */; };
 		F6FEB43B1F3D914D00417D2D /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F6FEB4391F3D914D00417D2D /* Main.storyboard */; };
@@ -37,6 +38,7 @@
 		F6FB15341F40D8160084F40F /* FoodMenuCategories.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FoodMenuCategories.swift; sourceTree = "<group>"; };
 		F6FB15361F40DB850084F40F /* FoodICategorytem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = FoodICategorytem.swift; path = Models/FoodICategorytem.swift; sourceTree = "<group>"; };
 		F6FB15381F40DBFE0084F40F /* FoodPriceInfo.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = FoodPriceInfo.swift; path = Models/FoodPriceInfo.swift; sourceTree = "<group>"; };
+		F6FB153C1F419A3A0084F40F /* CheckoutViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CheckoutViewController.swift; sourceTree = "<group>"; };
 		F6FEB4321F3D914D00417D2D /* TechnicheEComTest.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TechnicheEComTest.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		F6FEB4351F3D914D00417D2D /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		F6FEB4371F3D914D00417D2D /* HomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
@@ -86,6 +88,24 @@
 				F6FB15381F40DBFE0084F40F /* FoodPriceInfo.swift */,
 			);
 			name = Models;
+			sourceTree = "<group>";
+		};
+		F6FB153A1F419A110084F40F /* Home */ = {
+			isa = PBXGroup;
+			children = (
+				F6FEB4371F3D914D00417D2D /* HomeViewController.swift */,
+				F6FEB44C1F3D940700417D2D /* TopTabBar */,
+				F6FEB44D1F3D941400417D2D /* TabContent */,
+			);
+			name = Home;
+			sourceTree = "<group>";
+		};
+		F6FB153B1F419A1A0084F40F /* Checkout */ = {
+			isa = PBXGroup;
+			children = (
+				F6FB153C1F419A3A0084F40F /* CheckoutViewController.swift */,
+			);
+			name = Checkout;
 			sourceTree = "<group>";
 		};
 		F6FEB4291F3D914D00417D2D = {
@@ -139,9 +159,8 @@
 		F6FEB4491F3D928000417D2D /* ViewControllers */ = {
 			isa = PBXGroup;
 			children = (
-				F6FEB44C1F3D940700417D2D /* TopTabBar */,
-				F6FEB44D1F3D941400417D2D /* TabContent */,
-				F6FEB4371F3D914D00417D2D /* HomeViewController.swift */,
+				F6FB153B1F419A1A0084F40F /* Checkout */,
+				F6FB153A1F419A110084F40F /* Home */,
 			);
 			name = ViewControllers;
 			sourceTree = "<group>";
@@ -292,6 +311,7 @@
 				F6FB15371F40DB850084F40F /* FoodICategorytem.swift in Sources */,
 				F6FEB46D1F401D2600417D2D /* RoundButton.swift in Sources */,
 				F6FEB4361F3D914D00417D2D /* AppDelegate.swift in Sources */,
+				F6FB153D1F419A3B0084F40F /* CheckoutViewController.swift in Sources */,
 				F6FB15301F40B9A10084F40F /* DataManager.swift in Sources */,
 				F6FEB46A1F3F9BF300417D2D /* MenuItemsTableViewCell.swift in Sources */,
 				F6FEB4561F3D948A00417D2D /* TabContentViewController.swift in Sources */,

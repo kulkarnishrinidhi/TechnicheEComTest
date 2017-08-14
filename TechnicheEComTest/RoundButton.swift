@@ -8,16 +8,6 @@
 
 import UIKit
 
-protocol CircularViewConvertiable: class {
-    func circular()
-}
-
-extension CircularViewConvertiable where Self: UIView {
-    func circular() {
-        self.layer.cornerRadius = self.frame.width / 2
-    }
-}
-
 
 @IBDesignable
 class RoundButton: UIButton {
@@ -27,48 +17,70 @@ class RoundButton: UIButton {
             self.layer.borderColor = bordereColor.cgColor
         }
     }
+    
+    
+    @IBInspectable var cornerRadius: CGFloat = 0 {
+        didSet {
+            return self.layer.cornerRadius = cornerRadius
+        }
+    }
+    
+    @IBInspectable var borderWidth: CGFloat = 0 {
+        didSet {
+            return self.layer.borderWidth = borderWidth
+        }
+    }
 }
+
+
 
 @IBDesignable
 class RoundedView: UIView {
     
-    @IBInspectable var cornerrRadius: CGFloat = 0.0 {
+    @IBInspectable var bordereColor: UIColor = UIColor.clear {
         didSet {
-            self.layer.cornerRadius = cornerrRadius
+            self.layer.borderColor = bordereColor.cgColor
+        }
+    }
+    
+    
+    @IBInspectable var cornerRadius: CGFloat = 0 {
+        didSet {
+            return self.layer.cornerRadius = cornerRadius
+        }
+    }
+    
+    @IBInspectable var borderWidth: CGFloat = 0 {
+        didSet {
+            return self.layer.borderWidth = borderWidth
         }
     }
     
 }
 
 
-extension UIView {
+@IBDesignable
+class RoundedLabel: UILabel {
     
-    @IBInspectable var cornerRadius: CGFloat {
-        get {
-            return self.layer.cornerRadius
-        } set {
-            self.layer.masksToBounds = newValue > 0
-            self.layer.cornerRadius = newValue
+    @IBInspectable var bordereColor: UIColor = UIColor.clear {
+        didSet {
+            self.layer.borderColor = bordereColor.cgColor
         }
     }
     
-    @IBInspectable var borderWidth: CGFloat {
-        get {
-            return self.layer.borderWidth
-        } set {
-            self.layer.cornerRadius = newValue
+    
+    @IBInspectable var cornerRadius: CGFloat = 0 {
+        didSet {
+            return self.layer.cornerRadius = cornerRadius
         }
     }
     
-    @IBInspectable var borderColor: UIColor {
-        get {
-            return UIColor(cgColor: self.layer.borderColor!)
-        } set {
-            self.layer.borderColor = newValue.cgColor
+    @IBInspectable var borderWidth: CGFloat = 0 {
+        didSet {
+            return self.layer.borderWidth = borderWidth
         }
     }
+    
 }
-
-
 
 

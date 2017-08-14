@@ -17,6 +17,9 @@ struct FoodMenuCategory {
     let status: Bool
     private(set) var items: [FoodCategoryItem] = []
     
+    var sectionId: Int = -1
+    var expanded: Bool = false
+    
     init(json: [String: Any]) {
         self.id = json["_id"] as! String
         self.type = FoodMenuType(rawValue: (json["type"] as! String).uppercased())!

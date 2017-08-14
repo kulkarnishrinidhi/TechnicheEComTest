@@ -10,11 +10,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "TechnicheEComTest/ExpandableHeaderView.swift"
-            timestampString = "524322858.22939"
+            timestampString = "524393327.890121"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "38"
-            endingLineNumber = "38"
+            startingLineNumber = "39"
+            endingLineNumber = "39"
             landmarkName = "commonInit()"
             landmarkType = "7">
          </BreakpointContent>
@@ -25,46 +25,30 @@
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "TechnicheEComTest/HomeViewController.swift"
-            timestampString = "524345587.420017"
+            filePath = "TechnicheEComTest/TopTabBarViewController.swift"
+            timestampString = "524398694.346762"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "33"
-            endingLineNumber = "33"
-            landmarkName = "viewDidLoad()"
+            startingLineNumber = "75"
+            endingLineNumber = "75"
+            landmarkName = "updateHighlightedView(forCell:)"
             landmarkType = "7">
-            <Locations>
-               <Location
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "TechnicheEComTest.HomeViewController.(viewDidLoad () -&gt; ()).(closure #1)"
-                  moduleName = "TechnicheEComTest"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/shrilakshmikulkarni/Desktop/iOS%20Experiments/TechnicheEComTest/TechnicheEComTest/HomeViewController.swift"
-                  timestampString = "524345714.191979"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "33"
-                  endingLineNumber = "33"
-                  offsetFromSymbolStart = "30">
-               </Location>
-               <Location
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "TechnicheEComTest.HomeViewController.(viewDidLoad () -&gt; ()).(closure #1).(implicit closure #1)"
-                  moduleName = "TechnicheEComTest"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/shrilakshmikulkarni/Desktop/iOS%20Experiments/TechnicheEComTest/TechnicheEComTest/HomeViewController.swift"
-                  timestampString = "524345714.197059"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "33"
-                  endingLineNumber = "33"
-                  offsetFromSymbolStart = "23">
-               </Location>
-            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "TechnicheEComTest/TabContentViewController.swift"
+            timestampString = "524398694.346762"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "42"
+            endingLineNumber = "42"
+            landmarkName = "selecctItemAt(indexPath:)"
+            landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -73,13 +57,29 @@
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "TechnicheEComTest/DataManager.swift"
-            timestampString = "524345698.68561"
+            filePath = "TechnicheEComTest/TabContentViewController.swift"
+            timestampString = "524396816.92482"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "48"
-            endingLineNumber = "48"
-            landmarkName = "didFetchFoodData(data:response:error:completion:)"
+            startingLineNumber = "40"
+            endingLineNumber = "40"
+            landmarkName = "selecctItemAt(indexPath:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "TechnicheEComTest/TopTabBarViewController.swift"
+            timestampString = "524399445.120131"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "160"
+            endingLineNumber = "160"
+            landmarkName = "width(constraintedHieght:font:width:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>

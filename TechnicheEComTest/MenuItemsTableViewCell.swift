@@ -8,10 +8,32 @@
 
 import UIKit
 
-class MenuItemsTableViewCell: UITableViewCell {
+let segueToCheckoutVC = Notification.Name.init("segueToCheckoutVC")
 
+class MenuItemsTableViewCell: UITableViewCell {
     
     @IBOutlet weak var containerView: UIView!
+    
+    @IBOutlet weak var itemTitle: UILabel!
+    @IBOutlet weak var itemCost: UILabel!
+    @IBOutlet weak var itemQuantity: UILabel!
+    
+    var item: FoodCategoryItem?
+    
+    func render(item: FoodCategoryItem) {
+        self.item = item
+        self.itemTitle.text = ""
+        self.itemCost.text = ""
+        self.itemQuantity.text = ""
+        
+        itemTitle.text = item.name
+        if let price = item.prices.first?.priceOfEach {
+            itemCost.text = String(describing: price)
+        } else {
+            itemCost.text = "Not given"
+        }
+        itemQuantity.text = "100 gm"
+    }
     
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -34,5 +56,8 @@ class MenuItemsTableViewCell: UITableViewCell {
         self.containerView.layer.borderWidth = 1.0
     }
     
+    @IBAction func addItemAction(_ sender: RoundButton) {
+        NotificationCenter.default.post(name: segueToCheckoutVC, object: item, userInfo: nil)
+    }
     
 }

@@ -10,7 +10,7 @@ import UIKit
 
 
 protocol ExpandableHeaderViewDelegate {
-    func toggleSection(header: ExpandableHeaderView, forSection section: Section)
+    func toggleSection(header: ExpandableHeaderView, forSection section: FoodMenuCategory)
 }
 
 
@@ -21,11 +21,12 @@ class ExpandableHeaderView: UITableViewHeaderFooterView {
     @IBOutlet weak private var containerView: UIView!
     
     var delegate: ExpandableHeaderViewDelegate?
-    var section: Section? {
+    var category: FoodMenuCategory? {
         didSet {
-            self.update(section: section!)
+            self.update(section: category!)
         }
     }
+    
     
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -38,26 +39,26 @@ class ExpandableHeaderView: UITableViewHeaderFooterView {
         self.layer.cornerRadius = 1.0
         self.layer.borderWidth = 0.5
         self.layer.borderColor = UIColor.gray.cgColor
-
-        
     }
     
+    
     @IBAction func dropDownAction(_ sender: Any) {
-        delegate?.toggleSection(header: self, forSection: self.section!)
+        delegate?.toggleSection(header: self, forSection: self.category!)
     }
     
     
     func selectHeaderAction(gestureRecognizer: UITapGestureRecognizer) {
-        delegate?.toggleSection(header: self, forSection: self.section!)
+        delegate?.toggleSection(header: self, forSection: self.category!)
     }
     
-    func update(section: Section) {
-        self.titleLabel?.text = section.genre
+    
+    func update(section: FoodMenuCategory) {
+        self.titleLabel?.text = category?.name
     }
+    
     
     override func layoutSubviews() {
         super.layoutSubviews()
-        
     }
 
 

@@ -12,6 +12,7 @@ protocol TopTabBarViewDelegate: class {
     func numberOfItemsInTopTabBar() -> Int
     func topTabBarView(configure tabCollectionViewCell : TabCollectionViewCell, at indexPath : IndexPath)
     func topTabBarView(didSelectItemAt indexPath: IndexPath)
+    func topTabBarView(seizForItem at: IndexPath, collectionView: UICollectionView) -> CGSize
 }
 
 protocol ItemSelectable {
@@ -36,10 +37,7 @@ class TopTabBarViewController: UIViewController {
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        guard let tabCounts = self.tabBarDelegate?.numberOfItemsInTopTabBar(), tabCounts > 0 else { return  }
-        let firstIndexPath = IndexPath(item: 0, section: 0)
-        let cell = self.tabBarCollectionView.cellForItem(at: firstIndexPath)!
-        self.updateHighlightedView(forCell: cell)
+        self.updateHighlightedViewIfNeeded()
     }
 }
 
@@ -52,12 +50,8 @@ extension TopTabBarViewController {
         self.tabBarCollectionView.allowsSelection = true
         
         self.tabBarCollectionView.register(TabCollectionViewCell.nib(), forCellWithReuseIdentifier: TabCollectionViewCell.cellIdentifier())
-        
-        if let flowLayout = self.tabBarCollectionView.collectionViewLayout as? UICollectionViewFlowLayout {
-            //flowLayout.minimumInteritemSpacing = 10
-            flowLayout.estimatedItemSize = CGSize(width: 40, height: self.tabBarCollectionView.frame.height)
-            flowLayout.itemSize = UICollectionViewFlowLayoutAutomaticSize
-        }
+    
+
     }
     
     
@@ -102,6 +96,9 @@ extension TopTabBarViewController: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: TabCollectionViewCell.cellIdentifier(), for: indexPath) as! TabCollectionViewCell
         //cell.tabTitleLabel.preferredMaxLayoutWidth = 70
+        if indexPath.row == 0 {
+          self.updateHighlightedViewIfNeeded()
+        }
         self.tabBarDelegate?.topTabBarView(configure: cell, at: indexPath)
         //Set the initial state of highlighted view
         
@@ -119,6 +116,42 @@ extension TopTabBarViewController: UICollectionViewDelegate {
         self.updateHighlightedView(forCell: cell)
         self.tabBarDelegate?.topTabBarView(didSelectItemAt: indexPath)
     }
-
 }
 
+
+extension TopTabBarViewController: UICollectionViewDelegateFlowLayout {
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+
+        return (tabBarDelegate?.topTabBarView(seizForItem: indexPath, collectionView: collectionView))!
+    }
+    
+}
+
+extension TopTabBarViewController {
+    
+    func refreshView() {
+        self.tabBarCollectionView.reloadData()
+        self.perform(#selector(self.updateHighlightedViewIfNeeded), with: nil, afterDelay: 0.1)
+    }
+    
+    func updateHighlightedViewIfNeeded() {
+        let firstIndexPath = IndexPath(item: 0, section: 0)
+        guard let cell = self.tabBarCollectionView.cellForItem(at: firstIndexPath) else { return }
+        self.updateHighlightedView(forCell: cell)
+    }
+    
+}
+
+
+extension String {
+    
+    func width(constraintedHieght hieght: CGFloat, font: UIFont, width: CGFloat = .greatestFiniteMagnitude) -> CGFloat {
+        let label =  UILabel(frame: CGRect(x: 0, y: 0, width: width, height: hieght))
+        label.numberOfLines = 0
+        label.text = self
+        label.font = font
+        return label.intrinsicContentSize.width
+    }
+    
+}

@@ -11,18 +11,25 @@ import UIKit
 enum ContainerSegue: String {
     case topTabBarSegue
     case tabContentSegue
+    case checkOutSegue
 }
 
-class HomeViewController: UIViewController {
+let dataFetchFinishNotification = Notification.Name.init(rawValue: "dataFetchFinishNotification")
 
+
+
+class HomeViewController: UIViewController {
+    
     var topTabBarViewController: TopTabBarViewController!
     var tabContentViewController: TabContentViewController!
     
-    let menuLabels = ["Sweets", "Chat", "Rice", "Juice", "Roti", "Deserts", "Abcdefgh", "xyzqwer"]
+    var checkoutItem: FoodCategoryItem?
+    
     
     fileprivate var foodMenus:[FoodMenu] = [] {
         didSet {
-            self.topTabBarViewController.tabBarCollectionView.reloadData()
+            self.topTabBarViewController.refreshView()
+            self.tabContentViewController.tabContentCollectionView.reloadData()
         }
     }
     
@@ -30,9 +37,15 @@ class HomeViewController: UIViewController {
         super.viewDidLoad()
         let dataManager = DataManager()
         dataManager.getProductList { (foodMenus, error) in
-            self.foodMenus = foodMenus ?? []
+            self.foodMenus = foodMenus?.reversed() ?? []
+            if self.foodMenus.count > 0 {
+                self.postDataUpdateNotification(with: self.foodMenus[0].categories)
+            }
         }
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(self.segueToVC(notification:)), name: segueToCheckoutVC, object: nil)
     }
+    
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         
@@ -47,6 +60,8 @@ class HomeViewController: UIViewController {
         case .topTabBarSegue:
             topTabBarViewController = segue.destination as! TopTabBarViewController
             topTabBarViewController.tabBarDelegate = self
+        case .checkOutSegue:
+            print("segue to checkout vc")
         }
     }
     
@@ -59,25 +74,54 @@ class HomeViewController: UIViewController {
     }
 }
 
+//MARK:- Navigation Methods
+
+extension HomeViewController {
+    
+    func segueToVC(notification: Notification) {
+        guard let checkoutItem = notification.object as? FoodCategoryItem else { return }
+        self.checkoutItem = checkoutItem
+        self.performSegue(withIdentifier: ContainerSegue.checkOutSegue.rawValue, sender: nil)
+        //self.tableView.reloadData()
+    }
+
+}
+
+//MARK:- TopTabBarViewDelegate
 
 extension HomeViewController: TopTabBarViewDelegate {
     
     func topTabBarView(didSelectItemAt indexPath: IndexPath) {
-        // TODO: Implement delegates to content view
+        
         self.tabContentViewController.selecctItemAt(indexPath: indexPath)
+        //Update the data once tabcontent refreshed. so give 0.1 seconds delay.
+        if self.foodMenus.indices.contains(indexPath.row) {
+            Timer.scheduledTimer(withTimeInterval: 0.1, repeats: false, block: { _ in
+              self.postDataUpdateNotification(with: self.foodMenus[indexPath.row].categories)    
+            })
+        }
     }
     
     func topTabBarView(configure tabCollectionViewCell: TabCollectionViewCell, at indexPath: IndexPath) {
-    
+        
         tabCollectionViewCell.tabTitleLabel.text = self.foodMenus[indexPath.row].name
     }
     
     func numberOfItemsInTopTabBar() -> Int {
-        // TODO: Fetch data and return proper value
         return self.foodMenus.count
+    }
+    
+    func topTabBarView(seizForItem at: IndexPath, collectionView: UICollectionView) -> CGSize {
+        
+        let contentInset = collectionView.contentInset
+        let  hieght = collectionView.frame.height - (contentInset.top + contentInset.bottom)
+        let font = UIFont.systemFont(ofSize: 18.0, weight: UIFontWeightSemibold)
+        let width = self.foodMenus[at.row].name.width(constraintedHieght: hieght, font: font) + 16.0
+        return CGSize(width: width, height: hieght)
     }
 }
 
+//MARK:- TabContentViewDelegate
 
 extension HomeViewController: TabContentViewDelegate {
     
@@ -97,8 +141,7 @@ extension HomeViewController: TabContentViewDelegate {
     
     
     func numberOfItemsInTabContentCollectionView() -> Int {
-        // TODO: Fetch data and return proper value
-        return menuLabels.count
+        return self.foodMenus.count
     }
     
     func tabContentView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
@@ -110,5 +153,14 @@ extension HomeViewController: TabContentViewDelegate {
     
     func tabContentView(didMoveCellAt indexPath: IndexPath) {
         self.topTabBarViewController.selectItemAt(indexPath: indexPath)
+        if self.foodMenus.indices.contains(indexPath.row) {
+            self.postDataUpdateNotification(with: self.foodMenus[indexPath.row].categories)
+        }
+    }
+    
+    func postDataUpdateNotification(with categories: [FoodMenuCategory]) {
+        DispatchQueue.main.async(execute: {
+            NotificationCenter.default.post(name: dataFetchFinishNotification, object: categories, userInfo: nil)
+        })
     }
 }

@@ -37,8 +37,9 @@ extension TabContentViewController {
     
     func selecctItemAt(indexPath: IndexPath) {
         print(indexPath.row)
+        
         self.tabContentCollectionView.selectItem(at: indexPath, animated: true, scrollPosition: .centeredHorizontally)
-        //collectionView(self.tabContentCollectionView, didSelectItemAt: indexPath)
+        
     }
     
     func setupCollectionView() {
